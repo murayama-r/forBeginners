@@ -1,5 +1,6 @@
 import { FC, memo } from 'react'
 import styled from 'styled-components'
+
 import { Tag } from 'src/components/atoms/Tag'
 
 export type TagList = { id: string; value: string }[]
@@ -12,34 +13,31 @@ type Props = {
 }
 
 export const TagArea: FC<Props> = memo(
-  ({ tag, tagList, handleClearTag, handlePushTag }) => {
-    return (
-      <StWrapper>
-        <StSelectedTagAreaWrapper>
-          <StSelectedTagArea>
-            {tag.map((t) => (
-              <li key={t}>
-                <Tag value={t} />
-              </li>
-            ))}
-          </StSelectedTagArea>
-          <div onClick={handleClearTag}>×</div>
-        </StSelectedTagAreaWrapper>
-        <StSelectAreaWrapper>
-          <StSelectArea>
-            {tagList.map((t) => (
-              <StSelectText
-                key={t.value}
-                onClick={() => handlePushTag(t.value)}
-              >
-                {t.value}
-              </StSelectText>
-            ))}
-          </StSelectArea>
-        </StSelectAreaWrapper>
-      </StWrapper>
-    )
-  },
+  ({ tag, tagList, handleClearTag, handlePushTag }) => (
+    <StWrapper>
+      <StSelectedTagAreaWrapper>
+        <StSelectedTagArea>
+          {tag.map((t) => (
+            <li key={t}>
+              <Tag value={t} />
+            </li>
+          ))}
+        </StSelectedTagArea>
+        <button type="button" onClick={() => handleClearTag}>
+          ×
+        </button>
+      </StSelectedTagAreaWrapper>
+      <StSelectAreaWrapper>
+        <StSelectArea>
+          {tagList.map((t) => (
+            <StSelectText key={t.value} onClick={() => handlePushTag(t.value)}>
+              {t.value}
+            </StSelectText>
+          ))}
+        </StSelectArea>
+      </StSelectAreaWrapper>
+    </StWrapper>
+  ),
 )
 
 const StWrapper = styled.div``
@@ -51,15 +49,6 @@ const StSelectedTagAreaWrapper = styled.div`
 
 const StSelectedTagArea = styled.ul`
   display: flex;
-`
-
-const StTag = styled.li`
-  background-color: rgb(27, 161, 255);
-  color: #fff;
-  border-radius: 24px;
-  margin-right: 8px;
-  padding: 4px 12px;
-  font-size: 12px;
 `
 
 const StSelectAreaWrapper = styled.div`

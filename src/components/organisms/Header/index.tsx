@@ -1,15 +1,13 @@
 import { FC } from 'react'
 import styled from 'styled-components'
 
-export const Header: FC = () => {
-  return (
-    <StHeaderRoot>
-      <StHeaderContent>
-        <StHeaderTitle>skyticket</StHeaderTitle>
-      </StHeaderContent>
-    </StHeaderRoot>
-  )
-}
+export const Header: FC = () => (
+  <StHeaderRoot>
+    <StHeaderContent>
+      <StHeaderTitle>skyticket</StHeaderTitle>
+    </StHeaderContent>
+  </StHeaderRoot>
+)
 
 const StHeaderRoot = styled.header`
   background-color: rgb(27, 161, 255);

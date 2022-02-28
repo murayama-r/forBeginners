@@ -8,14 +8,17 @@ type Props = {
   onClose?: () => void
 }
 
-export const Tag: FC<Props> = ({ value, color, onClick, onClose }) => {
-  return (
-    <StTag onClick={onClick} color={color}>
-      {value}
-      {onClose && <StClose onClick={onClose}>×</StClose>}
-    </StTag>
-  )
-}
+export const Tag: FC<Props> = ({
+  value,
+  color = '',
+  onClick = undefined,
+  onClose = undefined,
+}) => (
+  <StTag onClick={onClick} color={color}>
+    {value}
+    {onClose && <StClose onClick={onClose}>×</StClose>}
+  </StTag>
+)
 
 const StTag = styled.span<{ color: string | undefined }>`
   background-color: ${(props) =>

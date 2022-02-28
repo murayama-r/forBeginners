@@ -9,16 +9,14 @@ type Props = {
 }
 
 export const Counter: FC<Props> = memo(
-  ({ count, handleIncrement, handleDecrement, resetCount }) => {
-    return (
-      <StCountWrapper>
-        <StButton onClick={handleDecrement}> - </StButton>
-        <div>{count}</div>
-        <StButton onClick={handleIncrement}> + </StButton>
-        <StButton onClick={resetCount}> × </StButton>
-      </StCountWrapper>
-    )
-  },
+  ({ count, handleIncrement, handleDecrement, resetCount }) => (
+    <StCountWrapper>
+      <StButton onClick={handleDecrement}> - </StButton>
+      <div>{count}</div>
+      <StButton onClick={handleIncrement}> + </StButton>
+      <StButton onClick={resetCount}> × </StButton>
+    </StCountWrapper>
+  ),
 )
 
 const StCountWrapper = styled.div`

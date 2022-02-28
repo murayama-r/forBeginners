@@ -1,4 +1,5 @@
-import { NextApiRequest, NextApiResponse } from 'Next'
+import { NextApiRequest, NextApiResponse } from 'next'
+
 import { TagList } from 'src/components/molecules/TagArea'
 
 const data: TagList = [

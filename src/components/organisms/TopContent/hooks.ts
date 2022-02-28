@@ -1,4 +1,5 @@
-import { useState, useEffect, useCallback, ChangeEvent } from 'react'
+import { ChangeEvent, useCallback, useEffect, useState } from 'react'
+
 import { TagList } from 'src/components/molecules/TagArea'
 import { Category, Skill } from 'src/components/molecules/Technology'
 
@@ -32,7 +33,7 @@ export const useTag = () => {
   useEffect(() => {
     const getTag = async () => {
       const res = await fetch('/api/tag')
-      const data: TagList = await res.json()
+      const data: TagList = (await res.json()) as TagList
 
       setTagList(data)
     }
@@ -49,7 +50,7 @@ export const useCategory = () => {
   useEffect(() => {
     const getCategories = async () => {
       const res = await fetch('/api/category')
-      const data: Category[] = await res.json()
+      const data: Category[] = (await res.json()) as Category[]
       setCategories(data)
     }
     getCategories()
@@ -69,7 +70,7 @@ export const useSkill = (categoryId: number) => {
   useEffect(() => {
     const getSkills = async () => {
       const res = await fetch(`/api/category/skill/${categoryId}`)
-      const data: Skill[] = await res.json()
+      const data: Skill[] = (await res.json()) as Skill[]
       setSkills(data)
     }
     if (categoryId === 0) {

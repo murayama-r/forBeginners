@@ -1,5 +1,6 @@
 import { ChangeEvent, FC, memo } from 'react'
 import styled from 'styled-components'
+
 import { Tag } from 'src/components/atoms/Tag'
 
 export type Category = {
@@ -29,56 +30,48 @@ export const Technology: FC<Props> = memo(
     categoryHandler,
     skillHandler,
     deleteSlected,
-  }) => {
-    return (
-      <StRoot>
-        <StLeft>
-          <select onChange={(e) => categoryHandler(e)}>
-            {categories.map((c) => {
+  }) => (
+    <StRoot>
+      <StLeft>
+        <select onChange={(e) => categoryHandler(e)}>
+          {categories.map((c) => (
+            <option key={c.value} value={c.id}>
+              {c.value}
+            </option>
+          ))}
+        </select>
+        {skills.length > 0 && (
+          <ul>
+            {skills.map((s) => (
+              <li key={s.value} value={s.id}>
+                <button type="button" onClick={() => skillHandler(s)}>
+                  {s.value}
+                </button>
+              </li>
+            ))}
+          </ul>
+        )}
+      </StLeft>
+      <StRight>
+        <div>
+          <ul>
+            {selectedSkills.map((s) => {
+              const color = getColorCode(s.categoryId)
               return (
-                <option key={c.value} value={c.id}>
-                  {c.value}
-                </option>
+                <li key={s.value}>
+                  <Tag
+                    value={s.value}
+                    color={color}
+                    onClose={() => deleteSlected(s)}
+                  />
+                </li>
               )
             })}
-          </select>
-          {skills.length > 0 && (
-            <ul>
-              {skills.map((s) => {
-                return (
-                  <li
-                    key={s.value}
-                    value={s.id}
-                    onClick={() => skillHandler(s)}
-                  >
-                    {s.value}
-                  </li>
-                )
-              })}
-            </ul>
-          )}
-        </StLeft>
-        <StRight>
-          <div>
-            <ul>
-              {selectedSkills.map((s) => {
-                const color = getColorCode(s.categoryId)
-                return (
-                  <li key={s.value}>
-                    <Tag
-                      value={s.value}
-                      color={color}
-                      onClose={() => deleteSlected(s)}
-                    />
-                  </li>
-                )
-              })}
-            </ul>
-          </div>
-        </StRight>
-      </StRoot>
-    )
-  },
+          </ul>
+        </div>
+      </StRight>
+    </StRoot>
+  ),
 )
 
 const getColorCode = (categoryId: number) => {

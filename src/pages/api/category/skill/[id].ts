@@ -1,5 +1,4 @@
-import { NextApiRequest, NextApiResponse } from 'Next'
-import { TagList } from 'src/components/molecules/TagArea'
+import { NextApiRequest, NextApiResponse } from 'next'
 
 type Skill = {
   id: number
@@ -12,8 +11,6 @@ const handler = (req: NextApiRequest, res: NextApiResponse) => {
   const data = getData(id.toString())
   res.status(200).json(data)
 }
-
-export default handler
 
 const getData = (id: string) => {
   switch (id) {
@@ -96,3 +93,5 @@ const skill4: Skill[] = [
   { id: 413, categoryId: 4, value: 'React Native' },
   { id: 414, categoryId: 4, value: 'Flutter' },
 ]
+
+export default handler

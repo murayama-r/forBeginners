@@ -1,13 +1,12 @@
 import type { NextPage } from 'next'
-import { Template } from 'src/components/templates'
-import { TopContent } from 'src/components/organisms/TopContent'
 
-const Home: NextPage = () => {
-  return (
+import { TopContent } from 'src/components/organisms/TopContent'
+import { Template } from 'src/components/templates'
+
+const Home: NextPage = () => (
     <Template title="test">
       <TopContent />
     </Template>
   )
-}
 
 export default Home

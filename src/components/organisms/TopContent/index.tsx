@@ -1,9 +1,11 @@
-import { FC, memo } from 'react'
+import { FC } from 'react'
 import styled from 'styled-components'
+
 import { Counter } from 'src/components/molecules/Counter'
 import { TagArea } from 'src/components/molecules/TagArea'
 import { Technology } from 'src/components/molecules/Technology'
-import { useCount, useTag, useCategory, useSkill } from './hooks'
+
+import { useCategory, useCount, useSkill, useTag } from './hooks'
 
 export const TopContent: FC = () => {
   const { count, handleIncrement, handleDecrement, resetCount } = useCount()

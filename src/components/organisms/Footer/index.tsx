@@ -1,15 +1,13 @@
 import { FC } from 'react'
 import styled from 'styled-components'
 
-export const Footer: FC = () => {
-  return (
-    <StFooterRoot>
-      <StFooterContent>
-        <StFooterTitle>skyticket</StFooterTitle>
-      </StFooterContent>
-    </StFooterRoot>
-  )
-}
+export const Footer: FC = () => (
+  <StFooterRoot>
+    <StFooterContent>
+      <StFooterTitle>skyticket</StFooterTitle>
+    </StFooterContent>
+  </StFooterRoot>
+)
 
 const StFooterRoot = styled.footer`
   background-color: rgb(0, 0, 0);

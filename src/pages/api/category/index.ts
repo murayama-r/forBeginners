@@ -1,5 +1,4 @@
-import { NextApiRequest, NextApiResponse } from 'Next'
-import { TagList } from 'src/components/molecules/TagArea'
+import { NextApiRequest, NextApiResponse } from 'next'
 
 type Category = {
   id: number
