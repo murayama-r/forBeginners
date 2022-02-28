@@ -1,58 +1,16 @@
-import { FC, useState, useEffect } from 'react'
+import { FC, memo } from 'react'
 import styled from 'styled-components'
 import { Counter } from 'src/components/molecules/Counter'
-import { Tag } from 'src/components/molecules/Tag'
+import { TagArea } from 'src/components/molecules/TagArea'
+import { Technology } from 'src/components/molecules/Technology'
+import { useCount, useTag, useCategory, useSkill } from './hooks'
 
 export const TopContent: FC = () => {
-  const [count, setCount] = useState(0)
-  const handleIncrement = () => setCount(count + 1)
-  const handleDecrement = () => count > 0 && setCount(count - 1)
-
-  const [tag, setTag] = useState<string[]>([])
-  const handleClearTag = () => setTag([])
-  const handlePushTag = (addTag: string) => {
-    if (tag.some((t) => t === addTag)) {
-      const tmpTag: string[] = tag.filter((t) => t !== addTag)
-      setTag(tmpTag)
-    } else {
-      const tmpTag: string[] = [...tag, addTag]
-      setTag(tmpTag)
-    }
-  }
-  const tagList: { id: string; value: string }[] = [
-    { id: 'tag1', value: 'React' },
-    { id: 'tag2', value: 'Vue.js' },
-    { id: 'tag3', value: 'Angular' },
-    { id: 'tag4', value: 'Next.js' },
-    { id: 'tag5', value: 'Nuxt.js' },
-    { id: 'tag6', value: 'jQuery' },
-    { id: 'tag7', value: 'Gatsby.js' },
-  ]
-
-  const tagListFromApi: { [key: string]: string } = {
-    tag1: 'React',
-    tag2: 'Vue.js',
-    tag3: 'Angular',
-    tag4: 'Next.js',
-    tag5: 'Nuxt.js',
-    tag6: 'jQuery',
-    tag7: 'Gatsby.js',
-  }
-
-  const transformData = (object: {
-    [key: string]: string
-  }): { id: string; value: string }[] => {
-    return Object.keys(object).map((k) => {
-      return { id: k, value: object[k] }
-    })
-  }
-
-  useEffect(() => {
-    console.log('fire')
-    transformData(tagListFromApi)
-    console.log(transformData(tagListFromApi))
-  }, [count])
-
+  const { count, handleIncrement, handleDecrement, resetCount } = useCount()
+  const { tag, tagList, handleClearTag, handlePushTag } = useTag()
+  const { categoryId, categories, categoryHandler } = useCategory()
+  const { skills, selectedSkills, skillHandler, deleteSlected } =
+    useSkill(categoryId)
   return (
     <StRoot>
       <StTitle>
@@ -65,15 +23,27 @@ export const TopContent: FC = () => {
             count={count}
             handleIncrement={handleIncrement}
             handleDecrement={handleDecrement}
+            resetCount={resetCount}
           />
         </StArticle>
         <StArticle>
           <StArticleTitle>タグ</StArticleTitle>
-          <Tag
+          <TagArea
             tag={tag}
             tagList={tagList}
             handleClearTag={handleClearTag}
             handlePushTag={handlePushTag}
+          />
+        </StArticle>
+        <StArticle>
+          <StArticleTitle>興味のある言語/フレームワーク</StArticleTitle>
+          <Technology
+            categories={categories}
+            skills={skills}
+            selectedSkills={selectedSkills}
+            categoryHandler={categoryHandler}
+            skillHandler={skillHandler}
+            deleteSlected={deleteSlected}
           />
         </StArticle>
       </StContent>

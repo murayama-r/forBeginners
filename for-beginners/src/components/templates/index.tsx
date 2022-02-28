@@ -1,4 +1,4 @@
-import { FC, ReactNode } from 'react'
+import React, { FC, ReactNode } from 'react'
 import Head from 'next/head'
 import { Header } from 'src/components/organisms/Header'
 import { Footer } from 'src/components/organisms/Footer'
