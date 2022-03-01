@@ -23,7 +23,7 @@ export const TagArea: FC<Props> = memo(
             </li>
           ))}
         </StSelectedTagArea>
-        <button type="button" onClick={() => handleClearTag}>
+        <button type="button" onClick={() => handleClearTag()}>
           ×
         </button>
       </StSelectedTagAreaWrapper>
