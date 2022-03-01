@@ -44,9 +44,9 @@ export const Technology: FC<Props> = memo(
           <ul>
             {skills.map((s) => (
               <li key={s.value} value={s.id}>
-                <button type="button" onClick={() => skillHandler(s)}>
+                <StButton type="button" onClick={() => skillHandler(s)}>
                   {s.value}
-                </button>
+                </StButton>
               </li>
             ))}
           </ul>
@@ -54,7 +54,7 @@ export const Technology: FC<Props> = memo(
       </StLeft>
       <StRight>
         <div>
-          <ul>
+          <StUl>
             {selectedSkills.map((s) => {
               const color = getColorCode(s.categoryId)
               return (
@@ -67,7 +67,7 @@ export const Technology: FC<Props> = memo(
                 </li>
               )
             })}
-          </ul>
+          </StUl>
         </div>
       </StRight>
     </StRoot>
@@ -94,5 +94,16 @@ const StRoot = styled.div`
 
 const StLeft = styled.div``
 const StRight = styled.div`
-  padding: 0 8px;
+  padding: 8px 16px;
+`
+
+const StButton = styled.button`
+  width: 100%;
+  height: 26px;
+  text-align: left;
+`
+
+const StUl = styled.ul`
+  display: flex;
+  flex-wrap: wrap;
 `
