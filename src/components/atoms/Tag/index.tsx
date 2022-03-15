@@ -34,4 +34,5 @@ const StTag = styled.span<{ color: string | undefined }>`
 
 const StClose = styled.span`
   margin-left: 8px;
+  cursor: pointer;
 `

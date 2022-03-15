@@ -5,13 +5,14 @@ import { Counter } from 'src/components/molecules/Counter'
 import { TagArea } from 'src/components/molecules/TagArea'
 import { Technology } from 'src/components/molecules/Technology'
 
-import { useCategory, useCount, useSkill, useTag } from './hooks'
+import { useCategory, useCount, useSkill, useTagList } from './hooks'
 
 export const TopContent: FC = () => {
   const { count, handleIncrement, handleDecrement, resetCount } = useCount()
-  const { tag, tagList, handleClearTag, handlePushTag } = useTag()
-  const { categoryId, categories, categoryHandler } = useCategory()
-  const { skills, selectedSkills, skillHandler, deleteSlected } =
+  const { displayTagList, tagList, handleClearTagList, handleTagList } =
+    useTagList()
+  const { categoryId, categoryList, categoryHandler } = useCategory()
+  const { skillList, selectedSkillList, skillHandler, deleteSlected } =
     useSkill(categoryId)
   return (
     <StRoot>
@@ -31,18 +32,18 @@ export const TopContent: FC = () => {
         <StArticle>
           <StArticleTitle>タグ</StArticleTitle>
           <TagArea
-            tag={tag}
+            displayTagList={displayTagList}
             tagList={tagList}
-            handleClearTag={handleClearTag}
-            handlePushTag={handlePushTag}
+            handleClearTagList={handleClearTagList}
+            handleTagList={handleTagList}
           />
         </StArticle>
         <StArticle>
           <StArticleTitle>興味のある言語/フレームワーク</StArticleTitle>
           <Technology
-            categories={categories}
-            skills={skills}
-            selectedSkills={selectedSkills}
+            categoryList={categoryList}
+            skillList={skillList}
+            selectedSkillList={selectedSkillList}
             categoryHandler={categoryHandler}
             skillHandler={skillHandler}
             deleteSlected={deleteSlected}

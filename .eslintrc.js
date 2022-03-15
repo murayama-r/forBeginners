@@ -21,7 +21,7 @@ module.exports = {
     project: ['./tsconfig.json'],
   },
   ignorePatterns: ['.eslintrc.js'],
-  plugins: ['react', '@typescript-eslint'],
+  plugins: ['react', '@typescript-eslint', 'jest'],
   rules: {
     'default-case-last': 'off',
     // eslint-plugin-importのルール。
@@ -152,6 +152,14 @@ module.exports = {
       rules: {
         'import/no-default-export': 'off',
         'import/prefer-default-export': 'error',
+      },
+    },
+    {
+      files: ['*/components/*/*/hooks.test.ts'],
+      rules: {
+        'no-global-assign': 'off',
+        '@typescript-eslint/no-explicit-any': 'off',
+        '@typescript-eslint/await-thenable': 'off',
       },
     },
   ],

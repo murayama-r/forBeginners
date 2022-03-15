@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, memo } from 'react'
+import { FC, memo } from 'react'
 import styled from 'styled-components'
 
 import { Tag } from 'src/components/atoms/Tag'
@@ -14,35 +14,40 @@ export type Skill = {
 }
 
 type Props = {
-  categories: Category[]
-  skills: Skill[]
-  selectedSkills: Skill[]
-  categoryHandler: (e: ChangeEvent<HTMLSelectElement>) => void
+  categoryList: Category[]
+  skillList: Skill[]
+  selectedSkillList: Skill[]
+  categoryHandler: (categoryId: number) => void
   skillHandler: (skill: Skill) => void
   deleteSlected: (skill: Skill) => void
 }
 
 export const Technology: FC<Props> = memo(
   ({
-    categories,
-    skills,
-    selectedSkills,
+    categoryList,
+    skillList,
+    selectedSkillList,
     categoryHandler,
     skillHandler,
     deleteSlected,
   }) => (
     <StRoot>
       <StLeft>
-        <select onChange={(e) => categoryHandler(e)}>
-          {categories.map((c) => (
+        <select
+          onChange={(e) => {
+            const categoryId = Number(e.target.value)
+            categoryHandler(categoryId)
+          }}
+        >
+          {categoryList.map((c) => (
             <option key={c.value} value={c.id}>
               {c.value}
             </option>
           ))}
         </select>
-        {skills.length > 0 && (
+        {skillList.length > 0 && (
           <ul>
-            {skills.map((s) => (
+            {skillList.map((s) => (
               <li key={s.value} value={s.id}>
                 <StButton type="button" onClick={() => skillHandler(s)}>
                   {s.value}
@@ -55,7 +60,7 @@ export const Technology: FC<Props> = memo(
       <StRight>
         <div>
           <StUl>
-            {selectedSkills.map((s) => {
+            {selectedSkillList.map((s) => {
               const color = getColorCode(s.categoryId)
               return (
                 <li key={s.value}>

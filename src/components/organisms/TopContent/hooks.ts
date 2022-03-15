@@ -1,4 +1,4 @@
-import { ChangeEvent, useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 import { TagList } from 'src/components/molecules/TagArea'
 import { Category, Skill } from 'src/components/molecules/Technology'
@@ -12,97 +12,113 @@ export const useCount = () => {
   return { count, handleIncrement, handleDecrement, resetCount }
 }
 
-export const useTag = () => {
-  const [tag, setTag] = useState<string[]>([])
-  const handleClearTag = useCallback(() => setTag([]), [])
-  const handlePushTag = useCallback(
+export const useTagList = () => {
+  const [displayTagList, setDisplayTagList] = useState<string[]>([])
+  const handleClearTagList = useCallback(() => setDisplayTagList([]), [])
+  const handleTagList = useCallback(
     (addTag: string) => {
-      if (tag.some((t) => t === addTag)) {
-        const tmpTag: string[] = tag.filter((t) => t !== addTag)
-        setTag(tmpTag)
+      if (displayTagList.some((t) => t === addTag)) {
+        const tmpTagList: string[] = displayTagList.filter((t) => t !== addTag)
+        setDisplayTagList(tmpTagList)
       } else {
-        const tmpTag: string[] = [...tag, addTag]
-        setTag(tmpTag)
+        const tmpTagList: string[] = [...displayTagList, addTag]
+        setDisplayTagList(tmpTagList)
       }
     },
-    [tag],
+    [displayTagList],
   )
 
   const [tagList, setTagList] = useState<TagList>([])
 
   useEffect(() => {
-    const getTag = async () => {
+    const getTagList = async () => {
       const res = await fetch('/api/tag')
-      const data: TagList = (await res.json()) as TagList
-
-      setTagList(data)
+      if (res.status === 200) {
+        const data: TagList = (await res.json()) as TagList
+        setTagList(data)
+      } else {
+        setTagList([{ id: 'tag0', value: '選択肢無し' }])
+      }
     }
-    getTag()
+    getTagList()
   }, [])
 
-  return { tag, tagList, handleClearTag, handlePushTag }
+  return { displayTagList, tagList, handleClearTagList, handleTagList }
 }
 
 export const useCategory = () => {
   const [categoryId, setCategoryId] = useState(0)
-  const [categories, setCategories] = useState<Category[]>([])
+  const [categoryList, setCategoryList] = useState<Category[]>([])
 
   useEffect(() => {
-    const getCategories = async () => {
+    const getCategoryList = async () => {
       const res = await fetch('/api/category')
-      const data: Category[] = (await res.json()) as Category[]
-      setCategories(data)
+      if (res.status === 200) {
+        const data: Category[] = (await res.json()) as Category[]
+        setCategoryList(data)
+      } else {
+        setCategoryList([{ id: 0, value: '選択されていません' }])
+      }
     }
-    getCategories()
+    getCategoryList()
   }, [])
 
-  const categoryHandler = useCallback((e: ChangeEvent<HTMLSelectElement>) => {
-    setCategoryId(Number(e.target.value))
-  }, [])
+  const categoryHandler = useCallback(
+    (tmpCategoryId: number) => {
+      setCategoryId(tmpCategoryId)
+    },
+    [categoryId],
+  )
 
-  return { categoryId, categories, categoryHandler }
+  return { categoryId, categoryList, categoryHandler }
 }
 
 export const useSkill = (categoryId: number) => {
-  const [skills, setSkills] = useState<Skill[]>([])
-  const [selectedSkills, setSelectedSkills] = useState<Skill[]>([])
+  const [skillList, setSkillList] = useState<Skill[]>([])
+  const [selectedSkillList, setSelectedSkillList] = useState<Skill[]>([])
 
   useEffect(() => {
-    const getSkills = async () => {
+    const getSkillList = async () => {
       const res = await fetch(`/api/category/skill/${categoryId}`)
-      const data: Skill[] = (await res.json()) as Skill[]
-      setSkills(data)
+      if (res.status === 200) {
+        const data: Skill[] = (await res.json()) as Skill[]
+        setSkillList(data)
+      } else {
+        setSkillList([])
+      }
     }
     if (categoryId === 0) {
-      setSkills([])
+      setSkillList([])
     } else {
-      getSkills()
+      getSkillList()
     }
   }, [categoryId])
 
   const skillHandler = useCallback(
     (skill: Skill) => {
-      if (selectedSkills.some((t) => t.id === skill.id)) {
-        const tmpTag: Skill[] = selectedSkills.filter((t) => t.id !== skill.id)
-        setSelectedSkills(tmpTag)
+      if (selectedSkillList.some((t) => t.id === skill.id)) {
+        const tmpSkillList: Skill[] = selectedSkillList.filter(
+          (t) => t.id !== skill.id,
+        )
+        setSelectedSkillList(tmpSkillList)
       } else {
-        const tmpTag: Skill[] = [...selectedSkills, skill]
+        const tmpSkillList: Skill[] = [...selectedSkillList, skill]
 
-        setSelectedSkills(tmpTag)
+        setSelectedSkillList(tmpSkillList)
       }
     },
-    [selectedSkills],
+    [selectedSkillList],
   )
 
   const deleteSlected = useCallback(
     (deleteSkill: Skill) => {
-      const tmpTags: Skill[] = selectedSkills.filter(
+      const tmpSkillList: Skill[] = selectedSkillList.filter(
         (t) => t.id !== deleteSkill.id,
       )
-      setSelectedSkills(tmpTags)
+      setSelectedSkillList(tmpSkillList)
     },
-    [selectedSkills],
+    [selectedSkillList],
   )
 
-  return { skills, selectedSkills, skillHandler, deleteSlected }
+  return { skillList, selectedSkillList, skillHandler, deleteSlected }
 }

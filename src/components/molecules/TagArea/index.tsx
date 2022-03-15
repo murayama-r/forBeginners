@@ -6,31 +6,31 @@ import { Tag } from 'src/components/atoms/Tag'
 export type TagList = { id: string; value: string }[]
 
 type Props = {
-  tag: string[]
+  displayTagList: string[]
   tagList: TagList
-  handleClearTag: () => void
-  handlePushTag: (addTag: string) => void
+  handleClearTagList: () => void
+  handleTagList: (addTag: string) => void
 }
 
 export const TagArea: FC<Props> = memo(
-  ({ tag, tagList, handleClearTag, handlePushTag }) => (
+  ({ displayTagList, tagList, handleClearTagList, handleTagList }) => (
     <StWrapper>
       <StSelectedTagAreaWrapper>
         <StSelectedTagArea>
-          {tag.map((t) => (
+          {displayTagList.map((t) => (
             <li key={t}>
               <Tag value={t} />
             </li>
           ))}
         </StSelectedTagArea>
-        <button type="button" onClick={() => handleClearTag()}>
+        <button type="button" onClick={() => handleClearTagList()}>
           ×
         </button>
       </StSelectedTagAreaWrapper>
       <StSelectAreaWrapper>
         <StSelectArea>
           {tagList.map((t) => (
-            <StSelectText key={t.value} onClick={() => handlePushTag(t.value)}>
+            <StSelectText key={t.value} onClick={() => handleTagList(t.value)}>
               {t.value}
             </StSelectText>
           ))}

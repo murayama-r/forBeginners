@@ -1,10 +1,10 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 
-type Category = {
+export type Category = {
   id: number
   value: string
 }
-const data: Category[] = [
+export const data: Category[] = [
   {
     id: 0,
     value: '選択されていません',
