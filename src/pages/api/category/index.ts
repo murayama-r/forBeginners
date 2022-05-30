@@ -5,10 +5,6 @@ export type Category = {
   value: string
 }
 export const data: Category[] = [
-  {
-    id: 0,
-    value: '選択されていません',
-  },
   { id: 1, value: 'サーバーサイド' },
   { id: 2, value: 'フロントエンド' },
   { id: 3, value: 'インフラ' },

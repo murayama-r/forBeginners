@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useState } from 'react'
 
 import { TagList } from 'src/components/molecules/TagArea'
-import { Category, Skill } from 'src/components/molecules/Technology'
+import { Skill } from 'src/components/molecules/Technology'
+import { Category } from 'src/pages/api/category'
 
 export const useCount = () => {
   const [count, setCount] = useState(0)

@@ -2,11 +2,8 @@ import { FC, memo } from 'react'
 import styled from 'styled-components'
 
 import { Tag } from 'src/components/atoms/Tag'
+import { Category } from 'src/pages/api/category'
 
-export type Category = {
-  id: number
-  value: string
-}
 export type Skill = {
   id: number
   categoryId: number
@@ -39,6 +36,9 @@ export const Technology: FC<Props> = memo(
             categoryHandler(categoryId)
           }}
         >
+          <option key={'選択されていません'} value={0}>
+            選択されていません
+          </option>
           {categoryList.map((c) => (
             <option key={c.value} value={c.id}>
               {c.value}

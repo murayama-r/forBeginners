@@ -1,11 +1,13 @@
 import { FC } from 'react'
 import styled from 'styled-components'
+import Link from 'next/link'
 
 import { Counter } from 'src/components/molecules/Counter'
 import { TagArea } from 'src/components/molecules/TagArea'
 import { Technology } from 'src/components/molecules/Technology'
 
 import { useCategory, useCount, useSkill, useTagList } from './hooks'
+import { useRouter } from 'next/router'
 
 export const TopContent: FC = () => {
   const { count, handleIncrement, handleDecrement, resetCount } = useCount()
@@ -14,6 +16,9 @@ export const TopContent: FC = () => {
   const { categoryId, categoryList, categoryHandler } = useCategory()
   const { skillList, selectedSkillList, skillHandler, deleteSlected } =
     useSkill(categoryId)
+
+  const router = useRouter()
+
   return (
     <StRoot>
       <StTitle>
@@ -50,6 +55,17 @@ export const TopContent: FC = () => {
           />
         </StArticle>
       </StContent>
+      <Link href={'/search'} passHref>
+        <StLink>検索画面へ</StLink>
+      </Link>
+      <Link href={'/search'}>検索画面へ</Link>
+      <StButton
+        onClick={() => {
+          router.push('/search')
+        }}
+      >
+        検索画面へ
+      </StButton>
     </StRoot>
   )
 }
@@ -80,3 +96,15 @@ const StArticle = styled.article`
 `
 
 const StArticleTitle = styled.h2``
+
+const StLink = styled.a`
+  color: rgb(27, 161, 255);
+`
+
+const StButton = styled.button`
+  margin: 16px;
+  border-radius: 3px;
+  background-color: rgb(27, 161, 255);
+  color: #fff;
+  padding: 8px;
+`

@@ -16,17 +16,17 @@ const getData = (id: string) => {
   switch (id) {
     default:
     case '1':
-      return skill1
+      return mockData.filter((d) => d.categoryId === 1)
     case '2':
-      return skill2
+      return mockData.filter((d) => d.categoryId === 2)
     case '3':
-      return skill3
+      return mockData.filter((d) => d.categoryId === 3)
     case '4':
-      return skill4
+      return mockData.filter((d) => d.categoryId === 4)
   }
 }
 
-const skill1: Skill[] = [
+const mockData: Skill[] = [
   { id: 101, categoryId: 1, value: 'Ruby' },
   { id: 102, categoryId: 1, value: 'PHP' },
   { id: 103, categoryId: 1, value: 'Python' },
@@ -40,9 +40,6 @@ const skill1: Skill[] = [
   { id: 126, categoryId: 1, value: 'Gin' },
   { id: 127, categoryId: 1, value: 'Revel' },
   { id: 128, categoryId: 1, value: 'Spring Boot' },
-]
-
-const skill2: Skill[] = [
   { id: 201, categoryId: 2, value: 'JavaScript' },
   { id: 202, categoryId: 2, value: 'HTML' },
   { id: 203, categoryId: 2, value: 'CSS' },
@@ -59,9 +56,6 @@ const skill2: Skill[] = [
   { id: 231, categoryId: 2, value: 'Ember' },
   { id: 232, categoryId: 2, value: 'Next.js' },
   { id: 233, categoryId: 2, value: 'Nuxt' },
-]
-
-const skill3: Skill[] = [
   { id: 301, categoryId: 3, value: 'AWS' },
   { id: 302, categoryId: 3, value: 'GCP' },
   { id: 303, categoryId: 3, value: 'Azure' },
@@ -81,9 +75,6 @@ const skill3: Skill[] = [
   { id: 317, categoryId: 3, value: 'GitHub Actions' },
   { id: 318, categoryId: 3, value: 'CircleCI' },
   { id: 319, categoryId: 3, value: 'Jenkins' },
-]
-
-const skill4: Skill[] = [
   { id: 401, categoryId: 4, value: 'Objective-C' },
   { id: 402, categoryId: 4, value: 'Swift' },
   { id: 403, categoryId: 4, value: 'AndroidJava' },
